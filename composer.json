@@ -1,0 +1,33 @@
+{
+    "name": "wjbecker/connectwise-api-client",
+    "description": "Connectwise API wrapper for PHP",
+    "keywords": [
+        "connectwise"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Wjbecker\\ConnectwiseApiClient\\": "src/"
+        }
+    },
+    "extra" : {
+        "laravel" : {
+            "providers" : [
+                "Wjbecker\\ConnectwiseApiClient\\ConnectWiseServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Josh Becker",
+            "email": "josh48202@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php" : "^8.0",
+        "guzzlehttp/guzzle": "^7.8",
+        "spatie/laravel-package-tools": "^1.16.1"
+    }
+}

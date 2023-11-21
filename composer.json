@@ -15,7 +15,10 @@
         "laravel" : {
             "providers" : [
                 "Wjbecker\\ConnectwiseApiClient\\ConnectWiseServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "ConnectWise": "Wjbecker\\ConnectwiseApiClient\\Facades\\ConnectWise"
+            }
         }
     },
     "authors": [
@@ -28,7 +31,7 @@
     "prefer-stable": true,
     "require": {
         "php" : "^8.0",
-        "guzzlehttp/guzzle": "^7.7",
-        "spatie/laravel-package-tools": "^1.16.1"
+        "guzzlehttp/guzzle": "^6.5|^7.0",
+        "spatie/laravel-package-tools": "^1.0|^1.13"
     }
 }

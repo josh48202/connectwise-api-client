@@ -3,16 +3,25 @@
 namespace Wjbecker\ConnectwiseApiClient;
 
 use GuzzleHttp\Client;
-use Wjbecker\ConnectwiseApiClient\Endpoints\CompanySites;
-use Wjbecker\ConnectwiseApiClient\Endpoints\OnHandSerialNumberses;
+use Illuminate\Support\Collection;
 
 class ConnectWise
 {
-    use Options,
-        CompanySites,
-        OnHandSerialNumberses;
+    public Client $client;
+    public array $options = [];
 
-    private Client $client;
+    private array $with = [
+        'conditions',
+        'childConditions',
+        'customFieldConditions',
+        'orderBy',
+        'fields',
+        'columns',
+        'page',
+        'pageSize',
+    ];
+
+    protected string $model;
 
     public function __construct()
     {
@@ -28,31 +37,52 @@ class ConnectWise
         ]);
     }
 
-    public function get($uri)
+    public function withOptions($options): self
     {
-        return $this->request('GET', $uri, [
-            'query' => [
-                'conditions' => $this->conditions,
-                'pageSize' => $this->pageSize
-            ]
-        ]);
+        $this->options = $options;
+        return $this;
     }
 
-    protected function request($method, $uri, array $payload = [])
+    public function get($uri)
     {
-        $response = $this->client->request($method, $uri, $payload);
+        return $this->request('GET', $uri);
+    }
+
+    protected function request($method, $uri, $payload = null)
+    {
+        if ($method === 'POST') {
+            $response = $this->client->request($method, $uri, ['json' => $payload]);
+        } else {
+            $response = $this->client->request($method, $uri, ['query' => $this->options]);
+        }
 
         $statusCode = $response->getStatusCode();
         if ($statusCode < 200 || $statusCode > 299) {
-            dd($statusCode);
+            dd($statusCode, json_decode($response->getBody(), true));
 //            return $this->handleRequestError($response);
         }
 
-        return json_decode($response->getBody(), true);
+        $response = (array) json_decode($response->getBody(), true);
+
+        if (!$this->isCollection($response)) {
+            return new $this->model($response, $this);
+        }
+
+        return new Collection(
+            array_map(function ($item) {
+                    return new $this->model($item, $this);
+                }, $response
+            )
+        );
     }
 
-    protected function transformCollection($collection, $class): array
+    protected function isCollection(array $array): bool
     {
-        return array_map(fn ($data) => new $class($data, $this), $collection);
+        // Keys of the array
+        $keys = array_keys($array);
+
+        // If the array keys of the keys match the keys, then the array must
+        // not be associative (e.g. the keys array looked like {0:0, 1:1...}).
+        return array_keys($keys) === $keys;
     }
 }

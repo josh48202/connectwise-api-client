@@ -5,6 +5,9 @@ namespace Wjbecker\ConnectwiseApiClient\Models\Sales;
 use Carbon\Carbon;
 use Wjbecker\ConnectwiseApiClient\Models\BaseModel;
 
+/**
+ * @property integer $id
+ */
 class Opportunity extends BaseModel
 {
     protected $casts = [

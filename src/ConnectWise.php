@@ -27,6 +27,7 @@ class ConnectWise
     {
         $this->client = new Client([
             'base_uri' => config('connectwise-api-client.url').'/v4_6_release/apis/3.0/',
+            'debug' => false,
             'http_errors' => false,
             'headers' => [
                 'Authorization' => 'Basic '.base64_encode(sprintf('%s+%s:%s', config('connectwise-api-client.company_id'), config('connectwise-api-client.public_key'), config('connectwise-api-client.private_key'))),

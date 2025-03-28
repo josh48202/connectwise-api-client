@@ -8,7 +8,7 @@ use Wjbecker\ConnectwiseApiClient\Models\Procurement\ProductsItem;
 
 class CatalogsItems extends ConnectWise
 {
-    protected string $model = CatalogsItem::class;
+    protected ?string $model = CatalogsItem::class;
 
     public function list()
     {

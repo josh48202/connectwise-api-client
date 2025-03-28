@@ -7,7 +7,7 @@ use Wjbecker\ConnectwiseApiClient\Models\Procurement\CatalogItemReference;
 
 class OpportunityForecasts extends ConnectWise
 {
-    protected string $model = CatalogItemReference::class;
+    protected ?string $model = CatalogItemReference::class;
 
     public function create($id, $payload)
     {

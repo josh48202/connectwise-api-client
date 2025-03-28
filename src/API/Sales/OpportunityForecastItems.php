@@ -7,7 +7,7 @@ use Wjbecker\ConnectwiseApiClient\Models\Sales\ForecastItem;
 
 class OpportunityForecastItems extends ConnectWise
 {
-    protected string $model = ForecastItem::class;
+    protected ?string $model = ForecastItem::class;
 
     public function create($id, $payload)
     {

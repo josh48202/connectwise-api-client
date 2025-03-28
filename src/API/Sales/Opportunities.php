@@ -7,7 +7,7 @@ use Wjbecker\ConnectwiseApiClient\Models\Sales\Opportunity;
 
 class Opportunities extends ConnectWise
 {
-    protected string $model = Opportunity::class;
+    protected ?string $model = Opportunity::class;
 
     public function find($id)
     {

@@ -7,7 +7,7 @@ use Wjbecker\ConnectwiseApiClient\Models\Procurement\OnHandSerialNumber;
 
 class OnHandSerialNumberses extends ConnectWise
 {
-    protected string $model = OnHandSerialNumber::class;
+    protected ?string $model = OnHandSerialNumber::class;
 
     public function count()
     {

@@ -7,7 +7,7 @@ use Wjbecker\ConnectwiseApiClient\Models\Service\Ticket;
 
 class Tickets extends ConnectWise
 {
-    protected string $model = Ticket::class;
+    protected ?string $model = Ticket::class;
 
     public function list()
     {

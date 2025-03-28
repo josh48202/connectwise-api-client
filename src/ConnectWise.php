@@ -21,7 +21,7 @@ class ConnectWise
         'pageSize',
     ];
 
-    protected string $model;
+    protected ?string $model = null;
 
     public function __construct()
     {
@@ -64,6 +64,10 @@ class ConnectWise
         }
 
         $response = (array) json_decode($response->getBody(), true);
+
+        if (is_null($this->model)) {
+            return $response;
+        }
 
         if (!$this->isCollection($response)) {
             return new $this->model($response, $this);
